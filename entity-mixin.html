@@ -1,6 +1,7 @@
 <link rel="import" href="entity-store.html">
 
 <script>
+(function() {
 	/*
 		@polymerMixin
 		A component mixin for HM entity with support for callback for updates
@@ -9,6 +10,7 @@
 			- unregisters old, registers new callback when href changes
 			- assumes one entity per component (maybe valid assumption)
 	*/
+
 	EntityMixin = function(superClass) {
 		return class extends superClass {
 
@@ -99,4 +101,9 @@
 
 		};
 	};
+	window.D2L = window.D2L || {};
+	window.D2L.Polymer = window.D2L.Polymer || {};
+	window.D2L.Polymer.Mixins = window.D2L.Polymer.Mixins || {};
+	window.D2L.Polymer.Mixins.EntityStore = EntityStore;
+})();
 </script>
