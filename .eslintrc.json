@@ -1,0 +1,25 @@
+{
+  "extends": "brightspace/polymer-config",
+  "env": {
+    "es6": true
+  },
+  "globals": {
+    "AuthDownloadMixin": false,
+    "EntityMixin": false,
+    "gtag": false,
+    "SirenActionMixin": false,
+    "SirenEntityMixin": false,
+    "LocalizationMixin": false,
+    "PerformanceObserver": false,
+    "PrefetchMixin": false,
+    "ttiPolyfill": false,
+    "PaginateMixin": false,
+    "NextEntityPaginateMixin": false
+  },
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "rules": {
+    "no-console": ["error", { "allow": ["debug", "warn", "error"] }]
+  }
+}
