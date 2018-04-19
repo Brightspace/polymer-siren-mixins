@@ -24,7 +24,7 @@
 					href: {
 						type: String,
 						observer: '_hrefChanged',
-            			notify: true,
+            notify: true,
 						reflectToAttribute: true
 					},
 					token: {
@@ -33,6 +33,10 @@
 					},
 					entity: {
 						type: Object
+					},
+					loaded: {
+						type: Boolean,
+						value: false
 					}
 				};
 			}
@@ -69,6 +73,7 @@
 					return;
 				}
 				window.D2L.Polymer.Mixins.EntityStore.addListener(href, this.token, this._entityChanged);
+				this.loaded = false;
 			}
 
 			_tokenChanged(token, oldToken) {
@@ -82,6 +87,7 @@
 					return;
 				}
 				window.D2L.Polymer.Mixins.EntityStore.addListener(this.href, token, this._entityChanged);
+				this.loaded = false;
 			}
 
 			_fetch(href, token) {
@@ -97,6 +103,7 @@
 
 			_entityChanged(entity) {
 				this.entity = entity;
+				this.loaded = true;
 			}
 
 		};

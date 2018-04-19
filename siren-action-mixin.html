@@ -32,11 +32,29 @@
 
 				if (action.fields && action.fields.forEach) {
 						action.fields.forEach(function(field) {
-						// if the field is specified multiple times, assume it is intentional
-						fields.append(field.name, field.value);
+							if(field.value === undefined){
+								return;
+							}
+							// if the field is specified multiple times, assume it is intentional
+							fields.append(field.name, field.value);
 					});
 				}
 				return fields;
+			}
+
+			getEntityUrl(action, fields) {
+				if (!action) {
+					return null;
+				}
+
+				var url = new URL(action.href, window.location.origin);
+
+				fields = fields || this.getSirenFields(action);
+				if (action.method === 'GET' || action.method === 'HEAD') {
+					url = new URL(url.pathname + '?' + fields.toString(), url.origin);
+				}
+
+				return url;
 			}
 
 			performSirenAction(action, fields) {
@@ -46,13 +64,11 @@
 				var headers = new Headers();
 				this.token && headers.append('Authorization', `Bearer ${this.token}`);
 
-				var url = new URL(action.href, window.location.origin);
+				var url = new URL(action.href, fields);
 				var body;
 
 				fields = fields || this.getSirenFields(action);
-				if (action.method === 'GET' || action.method === 'HEAD') {
-					url = new URL(url.pathname + '?' + fields.toString(), url.origin);
-				} else {
+				if (action.method !== 'GET' && action.method !== 'HEAD') {
 					body = fields;
 				}
 
