@@ -64,7 +64,7 @@
 				var headers = new Headers();
 				this.token && headers.append('Authorization', `Bearer ${this.token}`);
 
-				var url = new URL(action.href, fields);
+				var url = this.getEntityUrl(action, fields);
 				var body;
 
 				fields = fields || this.getSirenFields(action);
