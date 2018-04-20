@@ -89,6 +89,9 @@
 					headers: headers
 				})
 				.then(function (res) {
+					if (!res.ok) {
+							throw new Error(`${ res.statusText } response executing ${ action.method } on ${ url.href }.`);
+					}
 					return res.json();
 				})
 				.then(function(json) {
