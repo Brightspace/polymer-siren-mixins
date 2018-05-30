@@ -2,12 +2,12 @@
 <link rel="import" href="siren-parser.html">
 
 <script>
-(function(){
+(function() {
 	/*
 		@polymerMixin
 		@mixes EntityMixin
 	*/
-	SirenEntityMixin = function(superClass) {
+	const SirenEntityMixin = function(superClass) {
 		return class extends EntityMixin(superClass) {
 			_entityChanged(entity) {
 				this.entity = window.D2L.Hypermedia.Siren.Parse(entity);

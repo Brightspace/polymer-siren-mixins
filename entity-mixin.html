@@ -10,7 +10,7 @@
 			- unregisters old, registers new callback when href changes
 			- assumes one entity per component (maybe valid assumption)
 	*/
-	EntityMixin = function(superClass) {
+	const EntityMixin = function(superClass) {
 		return class extends superClass {
 
 			constructor() {
@@ -23,7 +23,7 @@
 					href: {
 						type: String,
 						observer: '_hrefChanged',
-            notify: true,
+						notify: true,
 						reflectToAttribute: true
 					},
 					token: {
