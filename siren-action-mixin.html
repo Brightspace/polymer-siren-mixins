@@ -1,11 +1,11 @@
 <link rel="import" href="entity-store.html">
 
 <script>
-(function(){
+(function() {
 	/*
 		@polymerMixin
 	*/
-	SirenActionMixin = function(superClass) {
+	const SirenActionMixin = function(superClass) {
 		return class extends superClass {
 			constructor() {
 				super();
@@ -31,12 +31,12 @@
 				}
 
 				if (action.fields && action.fields.forEach) {
-						action.fields.forEach(function(field) {
-							if(field.value === undefined){
-								return;
-							}
-							// if the field is specified multiple times, assume it is intentional
-							fields.append(field.name, field.value);
+					action.fields.forEach(function(field) {
+						if (field.value === undefined) {
+							return;
+						}
+						// if the field is specified multiple times, assume it is intentional
+						fields.append(field.name, field.value);
 					});
 				}
 				return fields;
@@ -88,15 +88,15 @@
 					body: body,
 					headers: headers
 				})
-				.then(function (res) {
-					if (!res.ok) {
+					.then(function(res) {
+						if (!res.ok) {
 							throw new Error(`${ res.statusText } response executing ${ action.method } on ${ url.href }.`);
-					}
-					return res.json();
-				})
-				.then(function(json) {
-					return window.D2L.Polymer.Mixins.EntityStore.update(url.href, token, json);
-				});
+						}
+						return res.json();
+					})
+					.then(function(json) {
+						return window.D2L.Polymer.Mixins.EntityStore.update(url.href, token, json);
+					});
 			}
 		};
 	};
