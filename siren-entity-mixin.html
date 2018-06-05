@@ -5,10 +5,10 @@
 (function() {
 	/*
 		@polymerMixin
-		@mixes EntityMixin
+		@mixes D2L.Polymer.Mixins.EntityMixin
 	*/
 	const SirenEntityMixin = function(superClass) {
-		return class extends EntityMixin(superClass) {
+		return class extends D2L.Polymer.Mixins.EntityMixin(superClass) {
 			_entityChanged(entity) {
 				this.entity = window.D2L.Hypermedia.Siren.Parse(entity);
 				this.loaded = true;
