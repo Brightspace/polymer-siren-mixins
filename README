@@ -1,1 +1,10 @@
 # polymer-siren-mixins
+
+## index.html
+
+```html
+<html>
+<head>
+	<script src="https://s.brightspace.com/lib/siren-parser/{version}/siren-parser.js"></script>
+</head>
+```
