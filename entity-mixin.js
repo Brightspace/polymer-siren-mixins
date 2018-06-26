@@ -1,3 +1,4 @@
+import { microTask } from '@polymer/polymer/lib/utils/async.js';
 import { EntityStore } from './entity-store.js';
 /*
 	@polymerMixin
@@ -19,28 +20,29 @@ export const EntityMixin = function(superClass) {
 			return {
 				href: {
 					type: String,
-					observer: '_hrefChanged',
-					notify: true,
 					reflectToAttribute: true
 				},
-				token: {
-					type: String,
-					observer: '_tokenChanged'
-				},
-				entity: {
-					type: Object
-				},
-				loaded: {
-					type: Boolean,
-					value: false
-				}
+				token: String,
+				entity: Object
 			};
 		}
 
-		static get observers() {
-			return [
-				'_fetch(href, token)'
-			];
+		_propertiesChanged(props, changedProps, prevProps) {
+			if (changedProps && changedProps.href !== undefined) {
+				this._hrefChanged(this.href);
+			}
+			if (changedProps && changedProps.token !== undefined) {
+				this._tokenChanged(this.token);
+			}
+			if (
+				changedProps &&
+				(changedProps.href !== undefined || changedProps.token !== undefined) &&
+				this.href !== undefined &&
+				this.token !== undefined
+			) {
+				this._fetch(this.href, this.token);
+			}
+			super._propertiesChanged(props, changedProps, prevProps);
 		}
 
 		connectedCallback() {
@@ -93,7 +95,7 @@ export const EntityMixin = function(superClass) {
 			var entity = EntityStore.fetch(this.href, token);
 			if (entity.status !== 'fetching') {
 				// Allows class/mixin to override _entityChanged
-				this._entityChanged(entity.entity);
+				microTask.run(() => this._entityChanged(entity.entity));
 			}
 		}
 
