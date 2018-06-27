@@ -8,3 +8,8 @@
 	<script src="https://s.brightspace.com/lib/siren-parser/{version}/siren-parser.js"></script>
 </head>
 ```
+
+## Usage
+
+import { SirenEntityMixin } from 'polymer-siren-mixins/siren-entity-mixin.js';
+import { SirenActionMixin } from 'polymer-siren-mixins/siren-action-mixin.js';
