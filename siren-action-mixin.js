@@ -16,6 +16,9 @@ export const SirenActionMixin = function(superClass) {
 			};
 		}
 
+		/**
+		 * Returns a URLSearchParams or FormData to send with request
+		 */
 		getSirenFields(action) {
 			var url = new URL(action.href, window.location.origin);
 			var fields;
@@ -39,6 +42,9 @@ export const SirenActionMixin = function(superClass) {
 			return fields;
 		}
 
+		/**
+		 * Returns the request URL of the siren action. If the request is a GET or HEAD, the fields will be added to the query string
+		 */
 		getEntityUrl(action, fields) {
 			if (!action) {
 				return null;
@@ -54,6 +60,11 @@ export const SirenActionMixin = function(superClass) {
 			return url;
 		}
 
+		/**
+		 * Perform the specified siren action with the URLSearchParams or FormData
+		 * If the action type is a JSON type, the fields will be converted to a JSON object
+		 * (don't pass a JSON object directly)
+		 */
 		performSirenAction(action, fields) {
 			if (!action) {
 				return Promise.reject(new Error('No action given'));
