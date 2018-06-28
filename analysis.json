@@ -1,0 +1,1302 @@
+{
+  "schema_version": "1.0.0",
+  "mixins": [
+    {
+      "description": "\t",
+      "summary": "",
+      "path": "siren-action-mixin.js",
+      "properties": [
+        {
+          "name": "token",
+          "type": "string | null | undefined",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 12,
+              "column": 4
+            },
+            "end": {
+              "line": 14,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "getSirenFields",
+          "description": "Returns a URLSearchParams or FormData to send with request",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 21,
+              "column": 2
+            },
+            "end": {
+              "line": 42,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "action"
+            }
+          ]
+        },
+        {
+          "name": "getEntityUrl",
+          "description": "Returns the request URL of the siren action. If the request is a GET or HEAD, the fields will be added to the query string",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 47,
+              "column": 2
+            },
+            "end": {
+              "line": 60,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "action"
+            },
+            {
+              "name": "fields"
+            }
+          ]
+        },
+        {
+          "name": "performSirenAction",
+          "description": "Perform the specified siren action with the URLSearchParams or FormData\nIf the action type is a JSON type, the fields will be converted to a JSON object\n(don't pass a JSON object directly)",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 67,
+              "column": 2
+            },
+            "end": {
+              "line": 107,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "action"
+            },
+            {
+              "name": "fields"
+            }
+          ]
+        }
+      ],
+      "staticMethods": [],
+      "demos": [],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 4,
+          "column": 7
+        },
+        "end": {
+          "line": 109,
+          "column": 2
+        }
+      },
+      "privacy": "public",
+      "name": "SirenActionMixin",
+      "attributes": [
+        {
+          "name": "token",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 12,
+              "column": 4
+            },
+            "end": {
+              "line": 14,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": []
+    },
+    {
+      "description": "\tA component mixin for HM entity with support for callback for updates\n\t- registers for store updates when attached to DOM\n\t- unregisters from store updates when removed from DOM\n\t- unregisters old, registers new callback when href changes\n\t- assumes one entity per component (maybe valid assumption)\n\t",
+      "summary": "A component mixin for HM entity with support for callback for updates",
+      "path": "entity-mixin.js",
+      "properties": [
+        {
+          "name": "href",
+          "type": "string | null | undefined",
+          "description": "URI to fetch the entity from",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 24,
+              "column": 4
+            },
+            "end": {
+              "line": 27,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "token",
+          "type": "string | null | undefined",
+          "description": "Bearer Auth token to attach to entity request",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 31,
+              "column": 4
+            },
+            "end": {
+              "line": 31,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "entity",
+          "type": "Object | null | undefined",
+          "description": "Resultant entity as a JSON object",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 35,
+              "column": 4
+            },
+            "end": {
+              "line": 35,
+              "column": 18
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Object"
+            }
+          }
+        },
+        {
+          "name": "loaded",
+          "type": "boolean | null | undefined",
+          "description": "True if entity is loaded. False if not loaded or loading",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 39,
+              "column": 4
+            },
+            "end": {
+              "line": 42,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        }
+      ],
+      "methods": [
+        {
+          "name": "_propertiesChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 46,
+              "column": 2
+            },
+            "end": {
+              "line": 62,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "props"
+            },
+            {
+              "name": "changedProps"
+            },
+            {
+              "name": "prevProps"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "connectedCallback",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 64,
+              "column": 2
+            },
+            "end": {
+              "line": 68,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "disconnectedCallback",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 70,
+              "column": 2
+            },
+            "end": {
+              "line": 77,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_hrefChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 79,
+              "column": 2
+            },
+            "end": {
+              "line": 91,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "href"
+            },
+            {
+              "name": "oldhref"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_tokenChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 93,
+              "column": 2
+            },
+            "end": {
+              "line": 105,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "token"
+            },
+            {
+              "name": "oldToken"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_fetch",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 107,
+              "column": 2
+            },
+            "end": {
+              "line": 116,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "href"
+            },
+            {
+              "name": "token"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_entityChanged",
+          "description": "Sets the `entity` property when Redux store updates. Can be overriden (to add special formatting)",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 121,
+              "column": 2
+            },
+            "end": {
+              "line": 124,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "entity"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        }
+      ],
+      "staticMethods": [],
+      "demos": [],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 11,
+          "column": 7
+        },
+        "end": {
+          "line": 127,
+          "column": 2
+        }
+      },
+      "privacy": "public",
+      "name": "EntityMixin",
+      "attributes": [
+        {
+          "name": "href",
+          "description": "URI to fetch the entity from",
+          "sourceRange": {
+            "start": {
+              "line": 24,
+              "column": 4
+            },
+            "end": {
+              "line": 27,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "token",
+          "description": "Bearer Auth token to attach to entity request",
+          "sourceRange": {
+            "start": {
+              "line": 31,
+              "column": 4
+            },
+            "end": {
+              "line": 31,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "entity",
+          "description": "Resultant entity as a JSON object",
+          "sourceRange": {
+            "start": {
+              "line": 35,
+              "column": 4
+            },
+            "end": {
+              "line": 35,
+              "column": 18
+            }
+          },
+          "metadata": {},
+          "type": "Object | null | undefined"
+        },
+        {
+          "name": "loaded",
+          "description": "True if entity is loaded. False if not loaded or loading",
+          "sourceRange": {
+            "start": {
+              "line": 39,
+              "column": 4
+            },
+            "end": {
+              "line": 42,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": []
+    },
+    {
+      "description": "\t",
+      "summary": "",
+      "path": "siren-entity-mixin.js",
+      "properties": [
+        {
+          "name": "href",
+          "type": "string | null | undefined",
+          "description": "URI to fetch the entity from",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "entity-mixin.js",
+            "start": {
+              "line": 24,
+              "column": 4
+            },
+            "end": {
+              "line": 27,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "inheritedFrom": "EntityMixin"
+        },
+        {
+          "name": "token",
+          "type": "string | null | undefined",
+          "description": "Bearer Auth token to attach to entity request",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "entity-mixin.js",
+            "start": {
+              "line": 31,
+              "column": 4
+            },
+            "end": {
+              "line": 31,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "inheritedFrom": "EntityMixin"
+        },
+        {
+          "name": "entity",
+          "type": "Object | null | undefined",
+          "description": "Resultant entity as a JSON object",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "entity-mixin.js",
+            "start": {
+              "line": 35,
+              "column": 4
+            },
+            "end": {
+              "line": 35,
+              "column": 18
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Object"
+            }
+          },
+          "inheritedFrom": "EntityMixin"
+        },
+        {
+          "name": "loaded",
+          "type": "boolean | null | undefined",
+          "description": "True if entity is loaded. False if not loaded or loading",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "entity-mixin.js",
+            "start": {
+              "line": 39,
+              "column": 4
+            },
+            "end": {
+              "line": 42,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false",
+          "inheritedFrom": "EntityMixin"
+        }
+      ],
+      "methods": [
+        {
+          "name": "_propertiesChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "entity-mixin.js",
+            "start": {
+              "line": 46,
+              "column": 2
+            },
+            "end": {
+              "line": 62,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "props"
+            },
+            {
+              "name": "changedProps"
+            },
+            {
+              "name": "prevProps"
+            }
+          ],
+          "return": {
+            "type": "void"
+          },
+          "inheritedFrom": "EntityMixin"
+        },
+        {
+          "name": "connectedCallback",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "entity-mixin.js",
+            "start": {
+              "line": 64,
+              "column": 2
+            },
+            "end": {
+              "line": 68,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          },
+          "inheritedFrom": "EntityMixin"
+        },
+        {
+          "name": "disconnectedCallback",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "entity-mixin.js",
+            "start": {
+              "line": 70,
+              "column": 2
+            },
+            "end": {
+              "line": 77,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          },
+          "inheritedFrom": "EntityMixin"
+        },
+        {
+          "name": "_hrefChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "entity-mixin.js",
+            "start": {
+              "line": 79,
+              "column": 2
+            },
+            "end": {
+              "line": 91,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "href"
+            },
+            {
+              "name": "oldhref"
+            }
+          ],
+          "return": {
+            "type": "void"
+          },
+          "inheritedFrom": "EntityMixin"
+        },
+        {
+          "name": "_tokenChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "entity-mixin.js",
+            "start": {
+              "line": 93,
+              "column": 2
+            },
+            "end": {
+              "line": 105,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "token"
+            },
+            {
+              "name": "oldToken"
+            }
+          ],
+          "return": {
+            "type": "void"
+          },
+          "inheritedFrom": "EntityMixin"
+        },
+        {
+          "name": "_fetch",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "entity-mixin.js",
+            "start": {
+              "line": 107,
+              "column": 2
+            },
+            "end": {
+              "line": 116,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "href"
+            },
+            {
+              "name": "token"
+            }
+          ],
+          "return": {
+            "type": "void"
+          },
+          "inheritedFrom": "EntityMixin"
+        },
+        {
+          "name": "_entityChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 11,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "entity"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_getSubEntityByRel",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 15,
+              "column": 2
+            },
+            "end": {
+              "line": 17,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "entity"
+            },
+            {
+              "name": "rel"
+            }
+          ]
+        },
+        {
+          "name": "_getSubEntitiesByRel",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 19,
+              "column": 2
+            },
+            "end": {
+              "line": 21,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "entity"
+            },
+            {
+              "name": "rel"
+            }
+          ]
+        },
+        {
+          "name": "_getSubEntityByClass",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 23,
+              "column": 2
+            },
+            "end": {
+              "line": 25,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "entity"
+            },
+            {
+              "name": "cls"
+            }
+          ]
+        },
+        {
+          "name": "_getLinkByRel",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 27,
+              "column": 2
+            },
+            "end": {
+              "line": 29,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "entity"
+            },
+            {
+              "name": "rel"
+            }
+          ]
+        },
+        {
+          "name": "_getLinkByClass",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 31,
+              "column": 2
+            },
+            "end": {
+              "line": 33,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "entity"
+            },
+            {
+              "name": "cls"
+            }
+          ]
+        },
+        {
+          "name": "_getLinksByClass",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 35,
+              "column": 2
+            },
+            "end": {
+              "line": 37,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "entity"
+            },
+            {
+              "name": "cls"
+            }
+          ]
+        },
+        {
+          "name": "_getActionByName",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 39,
+              "column": 2
+            },
+            "end": {
+              "line": 41,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "entity"
+            },
+            {
+              "name": "name"
+            }
+          ]
+        },
+        {
+          "name": "_hasActionByName",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 43,
+              "column": 2
+            },
+            "end": {
+              "line": 45,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "entity"
+            },
+            {
+              "name": "name"
+            }
+          ]
+        },
+        {
+          "name": "_hasClass",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 47,
+              "column": 2
+            },
+            "end": {
+              "line": 49,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "entity"
+            },
+            {
+              "name": "name"
+            }
+          ]
+        }
+      ],
+      "staticMethods": [],
+      "demos": [],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 6,
+          "column": 7
+        },
+        "end": {
+          "line": 51,
+          "column": 2
+        }
+      },
+      "privacy": "public",
+      "name": "SirenEntityMixin",
+      "attributes": [
+        {
+          "name": "href",
+          "description": "URI to fetch the entity from",
+          "sourceRange": {
+            "file": "entity-mixin.js",
+            "start": {
+              "line": 24,
+              "column": 4
+            },
+            "end": {
+              "line": 27,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined",
+          "inheritedFrom": "EntityMixin"
+        },
+        {
+          "name": "token",
+          "description": "Bearer Auth token to attach to entity request",
+          "sourceRange": {
+            "file": "entity-mixin.js",
+            "start": {
+              "line": 31,
+              "column": 4
+            },
+            "end": {
+              "line": 31,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined",
+          "inheritedFrom": "EntityMixin"
+        },
+        {
+          "name": "entity",
+          "description": "Resultant entity as a JSON object",
+          "sourceRange": {
+            "file": "entity-mixin.js",
+            "start": {
+              "line": 35,
+              "column": 4
+            },
+            "end": {
+              "line": 35,
+              "column": 18
+            }
+          },
+          "metadata": {},
+          "type": "Object | null | undefined",
+          "inheritedFrom": "EntityMixin"
+        },
+        {
+          "name": "loaded",
+          "description": "True if entity is loaded. False if not loaded or loading",
+          "sourceRange": {
+            "file": "entity-mixin.js",
+            "start": {
+              "line": 39,
+              "column": 4
+            },
+            "end": {
+              "line": 42,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined",
+          "inheritedFrom": "EntityMixin"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "mixins": [
+        "EntityMixin"
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "name": "_initContainer",
+      "description": "",
+      "summary": "",
+      "sourceRange": {
+        "file": "entity-store.js",
+        "start": {
+          "line": 11,
+          "column": 1
+        },
+        "end": {
+          "line": 20,
+          "column": 2
+        }
+      },
+      "privacy": "protected",
+      "params": []
+    },
+    {
+      "name": "addListener",
+      "description": "",
+      "summary": "",
+      "sourceRange": {
+        "file": "entity-store.js",
+        "start": {
+          "line": 22,
+          "column": 14
+        },
+        "end": {
+          "line": 30,
+          "column": 2
+        }
+      },
+      "privacy": "public",
+      "params": [],
+      "return": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "addInvalidationListener",
+      "description": "",
+      "summary": "",
+      "sourceRange": {
+        "file": "entity-store.js",
+        "start": {
+          "line": 32,
+          "column": 26
+        },
+        "end": {
+          "line": 34,
+          "column": 2
+        }
+      },
+      "privacy": "public",
+      "params": [],
+      "return": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "removeInvalidationListener",
+      "description": "",
+      "summary": "",
+      "sourceRange": {
+        "file": "entity-store.js",
+        "start": {
+          "line": 36,
+          "column": 29
+        },
+        "end": {
+          "line": 38,
+          "column": 2
+        }
+      },
+      "privacy": "public",
+      "params": [],
+      "return": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "fetch",
+      "description": "",
+      "summary": "",
+      "sourceRange": {
+        "file": "entity-store.js",
+        "start": {
+          "line": 40,
+          "column": 8
+        },
+        "end": {
+          "line": 76,
+          "column": 2
+        }
+      },
+      "privacy": "public",
+      "params": []
+    },
+    {
+      "name": "update",
+      "description": "",
+      "summary": "",
+      "sourceRange": {
+        "file": "entity-store.js",
+        "start": {
+          "line": 78,
+          "column": 9
+        },
+        "end": {
+          "line": 86,
+          "column": 2
+        }
+      },
+      "privacy": "public",
+      "params": []
+    },
+    {
+      "name": "setError",
+      "description": "",
+      "summary": "",
+      "sourceRange": {
+        "file": "entity-store.js",
+        "start": {
+          "line": 88,
+          "column": 11
+        },
+        "end": {
+          "line": 98,
+          "column": 2
+        }
+      },
+      "privacy": "public",
+      "params": []
+    },
+    {
+      "name": "removeListener",
+      "description": "",
+      "summary": "",
+      "sourceRange": {
+        "file": "entity-store.js",
+        "start": {
+          "line": 100,
+          "column": 17
+        },
+        "end": {
+          "line": 108,
+          "column": 2
+        }
+      },
+      "privacy": "public",
+      "params": [],
+      "return": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "_notify",
+      "description": "",
+      "summary": "",
+      "sourceRange": {
+        "file": "entity-store.js",
+        "start": {
+          "line": 110,
+          "column": 10
+        },
+        "end": {
+          "line": 115,
+          "column": 2
+        }
+      },
+      "privacy": "protected",
+      "params": [],
+      "return": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "_notifyError",
+      "description": "",
+      "summary": "",
+      "sourceRange": {
+        "file": "entity-store.js",
+        "start": {
+          "line": 117,
+          "column": 15
+        },
+        "end": {
+          "line": 122,
+          "column": 2
+        }
+      },
+      "privacy": "protected",
+      "params": [],
+      "return": {
+        "type": "void"
+      }
+    }
+  ]
+}

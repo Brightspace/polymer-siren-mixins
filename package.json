@@ -4,13 +4,16 @@
   "private": true,
   "scripts": {
     "lint:html": "eslint *.js",
-    "lint": "npm run lint:html && polymer lint *.js"
+    "lint": "npm run lint:html && polymer lint *.js",
+    "analyze": "polymer analyze *.js > analysis.json"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/Brightspace/polymer-siren-mixins"
   },
   "devDependencies": {
+    "@polymer/iron-component-page": "^3.0.0-pre.21",
+    "@webcomponents/webcomponentsjs": "^2.0.2",
     "babel-eslint": "^8.2.3",
     "eslint": "^4.15.0",
     "eslint-config-brightspace": "^0.4.0",

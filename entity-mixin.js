@@ -1,12 +1,13 @@
 import { microTask } from '@polymer/polymer/lib/utils/async.js';
 import { EntityStore } from './entity-store.js';
 /*
-	@polymerMixin
 	A component mixin for HM entity with support for callback for updates
-		- registers for store updates when attached to DOM
-		- unregisters from store updates when removed from DOM
-		- unregisters old, registers new callback when href changes
-		- assumes one entity per component (maybe valid assumption)
+	- registers for store updates when attached to DOM
+	- unregisters from store updates when removed from DOM
+	- unregisters old, registers new callback when href changes
+	- assumes one entity per component (maybe valid assumption)
+	@summary A component mixin for HM entity with support for callback for updates
+    @polymerMixin
 */
 export const EntityMixin = function(superClass) {
 	return class extends superClass {
@@ -18,12 +19,28 @@ export const EntityMixin = function(superClass) {
 
 		static get properties() {
 			return {
+				/**
+				 * URI to fetch the entity from
+				 */
 				href: {
 					type: String,
 					reflectToAttribute: true
 				},
+				/**
+				 * Bearer Auth token to attach to entity request
+				 */
 				token: String,
-				entity: Object
+				/**
+				 * Resultant entity as a JSON object
+				 */
+				entity: Object,
+				/**
+				 * True if entity is loaded. False if not loaded or loading
+				 */
+				loaded: {
+					type: Boolean,
+					value: false
+				}
 			};
 		}
 
@@ -99,6 +116,9 @@ export const EntityMixin = function(superClass) {
 			}
 		}
 
+		/**
+		 * Sets the `entity` property when Redux store updates. Can be overriden (to add special formatting)
+		 */
 		_entityChanged(entity) {
 			this.entity = entity;
 			this.loaded = true;
