@@ -11,6 +11,7 @@ export const SirenEntityMixin = function(superClass) {
 			}
 			this._rawEntity = entity;
 			this.entity = window.D2L.Hypermedia.Siren.Parse(entity);
+			this.loaded = true;
 		}
 
 		// Helper methods that can be used in computed properties

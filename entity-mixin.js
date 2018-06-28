@@ -27,7 +27,14 @@ export const EntityMixin = function(superClass) {
 				/**
 				 * Resultant entity as a JSON object
 				 */
-				entity: Object
+				entity: Object,
+				/**
+				 * True if entity is loaded. False if not loaded or loading
+				 */
+				loaded: {
+					type: Boolean,
+					value: false
+				}
 			};
 		}
 
@@ -52,6 +59,7 @@ export const EntityMixin = function(superClass) {
 				this.href !== undefined &&
 				this.token !== undefined
 			) {
+				this.loaded = false;
 				EntityStore.dispatch(fetchEntityIfNeeded(this.href, this.token))
 					.then(() => this._stateReceiver(EntityStore.getState()));
 			}
@@ -62,6 +70,7 @@ export const EntityMixin = function(superClass) {
 		 */
 		_entityChanged(entity) {
 			this.entity = entity;
+			this.loaded = true;
 		}
 	};
 };
