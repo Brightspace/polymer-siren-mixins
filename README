@@ -6,5 +6,28 @@
 <html>
 <head>
 	<script src="https://s.brightspace.com/lib/siren-parser/{version}/siren-parser.js"></script>
+	<script>
+		// TODO: Use production redux bundle (either dist or uglified) later.
+		// Will either need to integrate loose-envify into build process or
+		// figure out some other way.
+		window.process = window.process || {};
+		window.process.env = window.process.env || {};
+		window.process.env.NODE_ENV = 'development';
+	</script>
 </head>
+```
+
+## Usage
+
+```javascript
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { SirenEntityMixin } from 'polymer-siren-mixins/siren-entity-mixin.js';
+import { SirenActionMixin } from 'polymer-siren-mixins/siren-action-mixin.js';
+
+/* @mixes SirenEntityMixin
+   @mixes SirenActionMixin */
+class CustomElement extends SirenActionMixin(SirenEntityMixin(PolymerElement)) {
+	// the entity property is automatically set to fetch result when href/token are supplied
+	// performAction method is available from the SirenActionMixin
+}
 ```
