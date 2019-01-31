@@ -6,8 +6,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "lint:html": "eslint *.js",
-    "lint": "npm run lint:html && polymer lint *.js",
-    "analyze": "polymer analyze *.js > analysis.json"
+    "lint": "npm run lint:html && polymer lint *.js"
   },
   "repository": {
     "type": "git",
